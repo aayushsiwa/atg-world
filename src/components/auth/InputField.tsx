@@ -5,9 +5,12 @@ export const InputField: React.FC<InputFieldProps> = ({
     label,
     type = "text",
     id,
+    value,
     hasIcon,
     iconSrc,
     className,
+    onChange,
+    required = false,
 }) => {
     return (
         <div className={`relative ${className}`}>
@@ -21,6 +24,9 @@ export const InputField: React.FC<InputFieldProps> = ({
                     placeholder={label}
                     className="bg-transparent outline-none w-full"
                     aria-label={label}
+                    onChange={onChange}
+                    value={value}
+                    required={required}
                 />
                 {hasIcon && iconSrc && (
                     <img
