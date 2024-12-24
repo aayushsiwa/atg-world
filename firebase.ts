@@ -10,8 +10,9 @@ import {
     updateProfile,
     onAuthStateChanged,
     updateEmail,
+    User,
 } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -30,7 +31,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 
 const auth = getAuth();
 const storage = getStorage(app);
@@ -52,7 +53,7 @@ export const logOut = () => signOut(auth);
 export { auth, onAuthStateChanged, storage };
 
 export const updateUserProfile = async (
-    user,
+    user: User,
     displayName: string,
     photoURL: string
 ) => {
@@ -67,7 +68,7 @@ export const updateUserProfile = async (
     }
 };
 
-export const updateUserEmail = async (user, email: string) => {
+export const updateUserEmail = async (user:User, email: string) => {
     try {
         await updateEmail(user, email);
     } catch (error) {

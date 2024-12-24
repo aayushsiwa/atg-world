@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "./auth/SignUpForm";
 import close from "../assets/close.svg";
 import { auth, logOut } from "../../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 
 export const Navbar: React.FC = () => {
     const [showSignup, setShowSignup] = useState(false);
-    const [user, setUser] = useState(null);
+
+    const [user, setUser] = useState<User | null>(null);
     const [showProfile, setShowProfile] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
@@ -88,7 +89,7 @@ export const Navbar: React.FC = () => {
                     {user ? (
                         <div className="relative" ref={profileRef}>
                             <img
-                                src={user.photoURL}
+                                src={user.photoURL || ""}
                                 alt=""
                                 className="h-14 w-14"
                             />

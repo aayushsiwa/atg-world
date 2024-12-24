@@ -31,7 +31,7 @@ export const SignUpForm: React.FC = () => {
             alert("Signed in successfully!");
             // navigate("/restricted"); // Redirect to /restricted on successful sign-in
         } catch (error) {
-            alert(error.message);
+            alert((error as Error).message);
         }
         console.log(auth.currentUser);
     };
@@ -42,7 +42,7 @@ export const SignUpForm: React.FC = () => {
             alert("Signed in with Google successfully!");
             // navigate("/restricted"); // Redirect to /restricted on successful sign-in
         } catch (error) {
-            alert("Google sign-in error: " + error.message);
+            alert("Google sign-in error: " + (error as Error).message);
         }
     };
 
@@ -52,7 +52,7 @@ export const SignUpForm: React.FC = () => {
             alert("Signed in with GitHub successfully!");
             // navigate("/restricted"); // Redirect to /restricted on successful sign-in
         } catch (error) {
-            alert("GitHub sign-in error: " + error.message);
+            alert("GitHub sign-in error: " + (error as Error).message);
         }
     };
 
@@ -81,9 +81,11 @@ export const SignUpForm: React.FC = () => {
             console.log("User's full name:", user.displayName);
 
             // navigate("/restricted"); // Uncomment to redirect on successful sign-up
-        } catch (error: any) {
+        } catch (error) {
             console.error("Sign-up error:", error);
-            alert(error.message || "An error occurred during sign-up.");
+            alert(
+                (error as Error).message || "An error occurred during sign-up."
+            );
         }
     };
 

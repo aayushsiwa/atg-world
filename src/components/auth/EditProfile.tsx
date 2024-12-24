@@ -25,7 +25,11 @@ export const EditProfile: React.FC = () => {
             setSuccess("Profile updated successfully!");
             setError("");
         } catch (err) {
-            setError("Failed to update profile. Please try again.");
+            setError(
+                `Failed to update profile. Please try again.${
+                    (err as Error).message
+                }`
+            );
             setSuccess("");
         }
     };
@@ -43,10 +47,13 @@ export const EditProfile: React.FC = () => {
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
+                    console.log(snapshot);
                     // Optional: Track upload progress here if needed
                 },
                 (error) => {
-                    setError("Failed to upload profile picture.");
+                    setError(
+                        `Failed to upload profile picture.${error.message}`
+                    );
                     setIsUploading(false);
                 },
                 async () => {
@@ -58,7 +65,11 @@ export const EditProfile: React.FC = () => {
                         setIsUploading(false);
                         setSuccess("Profile picture uploaded successfully!");
                     } catch (err) {
-                        setError("Failed to fetch profile picture URL.");
+                        setError(
+                            `Failed to fetch profile picture URL.${
+                                (err as Error).message
+                            }`
+                        );
                         setIsUploading(false);
                     }
                 }
