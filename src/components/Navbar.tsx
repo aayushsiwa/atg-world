@@ -7,7 +7,6 @@ import { User, onAuthStateChanged } from "firebase/auth";
 
 export const Navbar: React.FC = () => {
     const [showSignup, setShowSignup] = useState(false);
-
     const [user, setUser] = useState<User | null>(null);
     const [showProfile, setShowProfile] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
@@ -25,6 +24,7 @@ export const Navbar: React.FC = () => {
             setShowProfile(false); // Reset profile menu to default closed state
         });
 
+        // console.log("User:", user);
         return () => unsubscribe();
     }, []);
 
@@ -89,10 +89,13 @@ export const Navbar: React.FC = () => {
                     {user ? (
                         <div className="relative" ref={profileRef}>
                             <img
-                                src={user.photoURL || ""}
-                                alt=""
-                                className="h-14 w-14"
+                                src={
+                                    "https://via.placeholder.com/150" // Fallback to placeholder if profilePicture is not available
+                                }
+                                alt="Profile"
+                                className="h-14 w-14 rounded-full object-cover cursor-pointer hidden"
                             />
+
                             <button className="flex" onClick={toggleProfile}>
                                 <span className="grow cursor-pointer select-none">
                                     Welcome,{" "}
