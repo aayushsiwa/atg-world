@@ -13,4 +13,7 @@ export interface InputFieldProps {
     hasIcon?: boolean;
     iconSrc?: string;
     className?: string;
+    onChange?: (e?: any) => void;
+    value?: string;
+    required?: boolean;
 }
