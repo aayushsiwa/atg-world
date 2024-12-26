@@ -71,6 +71,7 @@ const posts: PostProps[] = [
 ];
 
 export const SocialFeed: React.FC = () => {
+    const [location, setLocation] = useState("Noida, India");
     const [menuOpenPostIndex, setMenuOpenPostIndex] = useState<number | null>(
         null
     );
@@ -136,8 +137,8 @@ export const SocialFeed: React.FC = () => {
                 <div className="shrink-0 mt-3 w-full h-px border border-solid border-neutral-200" />
                 <div className="z-10 shrink-0 h-px border border-black border-solid w-[93px]" />
                 <div className="mt-7 max-md:max-w-full">
-                    <div className="flex gap-5 max-md:flex-col">
-                        <div className="flex flex-col w-[74%] max-md:ml-0 max-md:w-full">
+                    <div className="flex justify-between max-md:flex-col">
+                        <div className="flex flex-col max-md:ml-0 max-md:w-full w-8/12">
                             <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
                                 {posts.map((post, index) => (
                                     <div
@@ -160,16 +161,19 @@ export const SocialFeed: React.FC = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="flex flex-col ml-5 w-[26%] max-md:ml-0 max-md:w-full">
+                        {/* <div className="flex flex-col ml-5 w-[26%] max-md:ml-0 max-md:w-full">
                             <div className="flex flex-col mt-7 w-full text-black max-md:mt-10">
-                                <div className="flex gap-5 pb-2 justify-between w-full text-base border-b border-zinc-300">
+                                <div className="flex gap- pb-2 justify-between  text-base border-b border-zinc-300">
                                     <div className="flex gap-1 self-start items-center">
-                                        <LiaMapMarkerAltSolid />
                                         <div>Noida, India</div>
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            value={location}
+                                        />
                                     </div>
-                                    <button>
-                                        <MdModeEditOutline />
-                                    </button>
+                                    
                                 </div>
                                 <div className="shrink-0 mt-2.5 h-0 border-zinc-400" />
                                 <div className="flex gap-2 mt-8 text-sm items-center justify-center">
@@ -179,6 +183,20 @@ export const SocialFeed: React.FC = () => {
                                         and extend a personalised experience.
                                     </span>
                                 </div>
+                            </div>
+                        </div> */}
+
+                        <div className="w-3/12">
+                            <div className="w-full flex text-base items-center justify-between relative pb-2 border-b border-b-zinc-300">
+                                <LiaMapMarkerAltSolid className="absolute left-0 z-10 text-xl" />
+                                <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    value={location}
+                                    className="w-full px-6 pe-8"
+                                />
+                                <MdModeEditOutline className="absolute right-0 z-10 text-xl" />
                             </div>
                         </div>
                     </div>

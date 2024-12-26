@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { EditProfile } from "./components/auth/EditProfile";
 import { SocialFeed } from "./components/SocialFeed";
+// import { Navbar } from "./components/Navbar";
 
 function App() {
     return (

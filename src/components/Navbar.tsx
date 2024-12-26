@@ -4,6 +4,7 @@ import { SignUpForm } from "./auth/SignUpForm";
 import close from "../assets/close.svg";
 import { auth, logOut } from "../../firebase";
 import { User, onAuthStateChanged } from "firebase/auth";
+import { IoSearchSharp } from "react-icons/io5";
 
 export const Navbar: React.FC = () => {
     const [showSignup, setShowSignup] = useState(false);
@@ -73,12 +74,13 @@ export const Navbar: React.FC = () => {
                     className="object-contain shrink-0 self-stretch my-auto max-w-full aspect-[6.8] w-[163px]"
                 />
                 <div className="flex gap-3.5 self-stretch px-3.5 py-2.5 text-sm rounded-3xl bg-zinc-100 text-zinc-600 w-96">
-                    <img
+                    {/* <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7ff6d9700f3a724b9f912b0cf80e51d26afeb7f68ca09c78c3370b7d6e942ed?placeholderIfAbsent=true&apiKey=f01b86e2ed6a450e894cbf49dfa4b291"
                         alt="Search Icon"
                         className="object-contain shrink-0 aspect-square w-[22px]"
-                    />
+                    /> */}
+                    <IoSearchSharp className="object-contain shrink-0 aspect-square w-[22px] text-xl" />
                     <input
                         type="text"
                         className="flex-auto bg-transparent focus:outline-none"
@@ -98,7 +100,7 @@ export const Navbar: React.FC = () => {
 
                             <button className="flex" onClick={toggleProfile}>
                                 <span className="grow cursor-pointer select-none">
-                                    Welcome,{" "}
+                                    {/* Welcome,{" "} */}
                                     <span className="font-bold text-blue-600">
                                         {user.displayName || user.email}
                                     </span>
@@ -115,17 +117,17 @@ export const Navbar: React.FC = () => {
                                 className={`${
                                     showProfile ? "flex flex-col" : "hidden"
                                 }
-                                z-10 w-full absolute border bg-white 
+                                z-10 w-full min-w-32 right-0 absolute border bg-white rounded-lg overflow-hidden 
                                 `}
                             >
                                 <button
-                                    className="text-base text-left font-light text-black p-2 hover:border hover:border-blue-500 border border-white w-full"
+                                    className="text-base text-left font-light text-black p-2 hover:border hover:border-blue-300 border border-white w-full rounded-lg"
                                     onClick={() => navigate("/edit-profile")}
                                 >
                                     Edit Profile
                                 </button>
                                 <button
-                                    className="text-base text-left font-light text-red-500 p-2 hover:border hover:border-red-500 border border-white w-full"
+                                    className="text-base text-left font-light text-red-500 p-2 hover:border hover:bg-red-300 hover:border-red-500 border border-white w-full rounded-lg"
                                     onClick={logOut}
                                 >
                                     Logout
