@@ -6,6 +6,12 @@ import { Post } from "./Post";
 import { BiInfoCircle } from "react-icons/bi";
 import { MdModeEditOutline } from "react-icons/md";
 import { LiaMapMarkerAltSolid } from "react-icons/lia";
+import { auth } from "../../firebase";
+import thumbsUp from "../assets/twotone-thumb_up-24px.png";
+import leisure from "../assets/leisure.png";
+import mba from "../assets/mba.png";
+import philosophy from "../assets/philosophy.png";
+import activism from "../assets/activism.png";
 
 const posts: PostProps[] = [
     {
@@ -72,14 +78,35 @@ const posts: PostProps[] = [
 
 export const SocialFeed: React.FC = () => {
     const [location, setLocation] = useState("Noida, India");
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [followedGroups, setFollowedGroups] = useState<string[]>([]);
     const [menuOpenPostIndex, setMenuOpenPostIndex] = useState<number | null>(
         null
     );
     const menuRefs = useRef<(HTMLDivElement | null)[]>([]);
-
     const handleToggleMenu = (index: number) => {
         setMenuOpenPostIndex(menuOpenPostIndex === index ? null : index);
     };
+    console.log(location, loading);
+    const toggleFollow = (groupName: string) => {
+        setFollowedGroups((prevState) =>
+            prevState.includes(groupName)
+                ? prevState.filter((group) => group !== groupName)
+                : [...prevState, groupName]
+        );
+    };
+
+    useEffect(() => {
+        // Track user login state
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setLoggedIn(!!user); // Set loggedIn to true if user exists
+            setLoading(false); // Stop loading once state is determined
+        });
+
+        // Cleanup listener on unmount
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -187,17 +214,82 @@ export const SocialFeed: React.FC = () => {
                         </div> */}
 
                         <div className="w-3/12">
-                            <div className="w-full flex text-base items-center justify-between relative pb-2 border-b border-b-zinc-300">
-                                <LiaMapMarkerAltSolid className="absolute left-0 z-10 text-xl" />
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    value={location}
-                                    className="w-full px-6 pe-8"
-                                />
-                                <MdModeEditOutline className="absolute right-0 z-10 text-xl" />
+                            <div>
+                                <div className="w-full flex text-base items-center justify-between relative pb-2 border-b border-b-zinc-300">
+                                    <LiaMapMarkerAltSolid className="absolute left-0 z-10 text-xl" />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        onChange={(e) =>
+                                            setLocation(e.target.value)
+                                        }
+                                        className="w-full px-6 pe-8 focus:outline-none"
+                                        placeholder="Enter your location"
+                                    />
+                                    <MdModeEditOutline className="absolute right-0 z-10 text-xl" />
+                                </div>
+                                <div className="mt-8">
+                                    <div className="flex gap-2">
+                                        <BiInfoCircle className="text-xl text-zinc-400" />
+                                        <span className="text-zinc-400 text-sm">
+                                            Your location will help us serve
+                                            better
+                                        </span>
+                                    </div>
+                                    <span className="ms-8 text-zinc-400 text-sm">
+                                        and extend a personalised experience.
+                                    </span>
+                                </div>
                             </div>
+
+                            {loggedIn && (
+                                <div className="mt-16">
+                                    <div className="uppercase flex gap-4 font-semibold">
+                                        <img src={thumbsUp} alt="Thumbs up" />
+                                        Recommended Groups
+                                    </div>
+                                    {[
+                                        { name: "Leisure", img: leisure },
+                                        { name: "Activism", img: activism },
+                                        { name: "MBA", img: mba },
+                                        { name: "Philosophy", img: philosophy },
+                                    ].map((group, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex mt-6 justify-between items-center"
+                                        >
+                                            <div className="flex gap-4 items-center">
+                                                <img
+                                                    src={group.img}
+                                                    alt={group.name}
+                                                    className="rounded-full"
+                                                />
+                                                {group.name}
+                                            </div>
+                                            <button
+                                                className={`p-1 px-4 rounded-full  ${
+                                                    followedGroups.includes(
+                                                        group.name
+                                                    )
+                                                        ? "text-white bg-black"
+                                                        : "text-black bg-gray-200"
+                                                }
+                                                transition-all duration-300`}
+                                                onClick={() =>
+                                                    toggleFollow(group.name)
+                                                }
+                                            >
+                                                {followedGroups.includes(
+                                                    group.name
+                                                )
+                                                    ? "Followed"
+                                                    : "Follow"}
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
