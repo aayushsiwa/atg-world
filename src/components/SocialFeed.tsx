@@ -7,11 +7,11 @@ import { BiInfoCircle } from "react-icons/bi";
 import { MdModeEditOutline } from "react-icons/md";
 import { LiaMapMarkerAltSolid } from "react-icons/lia";
 import { auth } from "../../firebase";
-import thumbsUp from "../assets/twotone-thumb_up-24px.png";
-import leisure from "../assets/leisure.png";
-import mba from "../assets/mba.png";
-import philosophy from "../assets/philosophy.png";
-import activism from "../assets/activism.png";
+import thumbsUp from "/assets/twotone-thumb_up-24px.png";
+import leisure from "/assets/leisure.png";
+import mba from "/assets/mba.png";
+import philosophy from "/assets/philosophy.png";
+import activism from "/assets/activism.png";
 
 const posts: PostProps[] = [
     {

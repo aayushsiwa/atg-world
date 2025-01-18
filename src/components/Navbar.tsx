@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "./auth/SignUpForm";
-import close from "../assets/close.svg";
+import close from "/assets/close.svg";
 import { auth, logOut } from "../../firebase";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { IoSearchSharp } from "react-icons/io5";

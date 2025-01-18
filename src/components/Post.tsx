@@ -1,6 +1,6 @@
 import * as React from "react";
 import { PostProps } from "./types";
-import menu from "../assets/menu.svg";
+import menu from "/assets/menu.svg";
 
 export const Post: React.FC<
     PostProps & { isMenuOpen: boolean; onToggleMenu: () => void }
